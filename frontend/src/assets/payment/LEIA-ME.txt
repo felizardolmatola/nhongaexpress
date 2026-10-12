@@ -1,0 +1,8 @@
+Logótipos das carteiras móveis (já incluídos). Para trocar, substitua os ficheiros mantendo o nome:
+
+  mpesa.png   (ou .svg / .webp / .jpg)  -> logótipo do M-Pesa
+  emola.png   (ou .svg / .webp / .jpg)  -> logótipo do e-Mola
+
+O site usa-os automaticamente (rodapé, checkout e página Pagamentos).
+Enquanto os ficheiros não existirem, é mostrado um ícone simples de substituição.
+Dica: use imagens com fundo transparente ou branco e cerca de 200 px de largura.

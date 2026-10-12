@@ -1,0 +1,23 @@
+-- REVER no Google Maps antes de executar. Bairros sem ponto ficam de fora.
+update public.delivery_zones set latitude = -19.83448, longitude = 34.83414, updated_at = now() where neighborhood = 'Chaimite';
+update public.delivery_zones set latitude = -19.83773, longitude = 34.85551, updated_at = now() where neighborhood = 'Chipangara';
+update public.delivery_zones set latitude = -19.82991, longitude = 34.85115, updated_at = now() where neighborhood = 'Esturro';
+update public.delivery_zones set latitude = -19.83627, longitude = 34.87963, updated_at = now() where neighborhood = 'Macurungo';
+update public.delivery_zones set latitude = -19.84677, longitude = 34.88915, updated_at = now() where neighborhood = 'Macuti';
+update public.delivery_zones set latitude = -19.83494, longitude = 34.86124, updated_at = now() where neighborhood = 'Matacuane';
+update public.delivery_zones set latitude = -19.82415, longitude = 34.83986, updated_at = now() where neighborhood = 'Pioneiros';
+update public.delivery_zones set latitude = -19.84485, longitude = 34.84557, updated_at = now() where neighborhood = 'Ponta-Gêa';
+update public.delivery_zones set latitude = -19.81675, longitude = 34.89605, updated_at = now() where neighborhood = 'Chota';
+update public.delivery_zones set latitude = -19.81873, longitude = 34.86033, updated_at = now() where neighborhood = 'Mananga';
+update public.delivery_zones set latitude = -19.80773, longitude = 34.87096, updated_at = now() where neighborhood = 'Maraza';
+update public.delivery_zones set latitude = -19.79365, longitude = 34.86964, updated_at = now() where neighborhood = 'Vaz';
+update public.delivery_zones set latitude = -19.7889, longitude = 34.86748, updated_at = now() where neighborhood = 'Alto da Manga';
+update public.delivery_zones set latitude = -19.74603, longitude = 34.85966, updated_at = now() where neighborhood = 'Chingussura';
+update public.delivery_zones set latitude = -19.72585, longitude = 34.81829, updated_at = now() where neighborhood = 'Inhamízua';
+update public.delivery_zones set latitude = -19.71912, longitude = 34.80683, updated_at = now() where neighborhood = 'Matadouro';
+update public.delivery_zones set latitude = -19.76624, longitude = 34.86398, updated_at = now() where neighborhood = 'Nhaconjo';
+update public.delivery_zones set latitude = -19.75431, longitude = 34.85535, updated_at = now() where neighborhood = 'Vila Massane';
+update public.delivery_zones set latitude = -19.80165, longitude = 34.89097, updated_at = now() where neighborhood = 'Manga Mascarenhas';
+update public.delivery_zones set latitude = -19.80523, longitude = 34.91647, updated_at = now() where neighborhood = 'Muave';
+update public.delivery_zones set latitude = -19.7889, longitude = 34.86748, updated_at = now() where neighborhood = 'Ndunda';
+update public.delivery_zones set latitude = -19.77629, longitude = 34.88351, updated_at = now() where neighborhood = 'Nhangau';
