@@ -52,11 +52,11 @@ O projeto foi desenhado com três princípios:
 
 | Loja — página inicial | Painel administrativo |
 |:---:|:---:|
-| ![Página inicial da loja](docs/screenshots/loja-inicio.png) | ![Dashboard do painel administrativo](docs/screenshots/painel-admin.png) |
+| ![Página inicial da loja](/frontend/src/assets/projeto/loja-inicio.png) | ![Dashboard do painel administrativo](/frontend/src/assets/projeto/painel-admin.png) |
 
 | Entrar / Registar |
 |:---:|
-| ![Ecrã de login](docs/screenshots/login.png) |
+| ![Ecrã de login](/frontend/src/assets/projeto/login.png) |
 
 ---
 
