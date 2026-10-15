@@ -108,7 +108,7 @@ function Footer({ s }: { s: Store }) {
           <div><h4>Receba ofertas em primeira mão</h4><small>Subscreva a newsletter e não perca promoções e novidades.</small></div>
           {done ? <p className="ft-ok" role="status">Subscrição registada. Obrigado!</p> : (
             <div className="ft-sub">
-              <input type="email" maxLength={254} value={mail} placeholder="Email" autoComplete="email" aria-label="E-mail para newsletter" aria-invalid={bad}
+              <input type="email" maxLength={254} value={mail} autoComplete="email" aria-label="E-mail para newsletter" aria-invalid={bad}
                 onChange={(e) => { setMail(e.target.value); setBad(false); }} onKeyDown={(e) => e.key === "Enter" && subscribe()} />
               <button className="btn" onClick={subscribe}>Subscrever</button>
               {bad && <span className="ft-err" role="alert">Introduza um e-mail válido (nome@dominio.com).</span>}
@@ -563,7 +563,7 @@ const Recover = ({ s, initialId, onBack, onDone }: { s: Store; initialId: string
         <AuthLogo />
         <h2>Recuperar palavra-passe</h2>
         <p className="muted">Indique o e-mail da sua conta e enviaremos um código de 6 dígitos para esse e-mail, para criar uma nova palavra-passe.</p>
-        <div className="field"><label htmlFor="rec-id">E-mail</label><input id="rec-id" {...FIELD.email} placeholder="Ex.: nome@email.com" value={id} onChange={(e) => { setId(e.target.value); setErrs({}); setMsg(""); }} aria-invalid={!!errs.id} />{errs.id && <small className="field-error">{errs.id}</small>}</div>
+        <div className="field"><label htmlFor="rec-id">E-mail</label><input id="rec-id" {...FIELD.email} value={id} onChange={(e) => { setId(e.target.value); setErrs({}); setMsg(""); }} aria-invalid={!!errs.id} />{errs.id && <small className="field-error">{errs.id}</small>}</div>
         {msg && <p className="auth-err" role="alert">{msg}</p>}
         <button type="submit" className="btn full" disabled={busy}>{busy ? "A enviar..." : "Enviar código"}</button>
         <button type="button" className="link auth-link" onClick={onBack}>Voltar a Entrar</button>
@@ -576,12 +576,12 @@ const Recover = ({ s, initialId, onBack, onDone }: { s: Store; initialId: string
       <AuthLogo />
       <h2>Nova palavra-passe</h2>
       <p className="auth-ok" role="status">Se existir uma conta com o e-mail <b>{id.trim()}</b>, enviámos um código de 6 dígitos para a caixa de correio (veja também a pasta de spam). Vale 15 minutos.</p>
-      <div className="field"><label htmlFor="rec-code">Código de 6 dígitos</label><input id="rec-code" {...FIELD.code} placeholder="Ex.: 123456" value={code} onChange={(e) => { setCode(onlyDigits(e.target.value, 6)); setErrs({ ...errs, code: "" }); setMsg(""); }} aria-invalid={!!errs.code} />{errs.code && <small className="field-error">{errs.code}</small>}</div>
+      <div className="field"><label htmlFor="rec-code">Código de 6 dígitos</label><input id="rec-code" {...FIELD.code} value={code} onChange={(e) => { setCode(onlyDigits(e.target.value, 6)); setErrs({ ...errs, code: "" }); setMsg(""); }} aria-invalid={!!errs.code} />{errs.code && <small className="field-error">{errs.code}</small>}</div>
       <div className="field"><label htmlFor="rec-pw">Nova palavra-passe</label>
-        <div className="pw"><input id="rec-pw" placeholder="Mínimo 8 caracteres" maxLength={128} type={show ? "text" : "password"} autoComplete="new-password" value={pw.next} onChange={(e) => { setPw({ ...pw, next: e.target.value }); setErrs({ ...errs, next: "" }); }} aria-invalid={!!errs.next} /><button type="button" className="pw-toggle" aria-label={show ? "Ocultar palavra-passe" : "Mostrar palavra-passe"} onClick={() => setShow(!show)}>{show ? "◉" : "◌"}</button></div>
+        <div className="pw"><input id="rec-pw" maxLength={128} type={show ? "text" : "password"} autoComplete="new-password" value={pw.next} onChange={(e) => { setPw({ ...pw, next: e.target.value }); setErrs({ ...errs, next: "" }); }} aria-invalid={!!errs.next} /><button type="button" className="pw-toggle" aria-label={show ? "Ocultar palavra-passe" : "Mostrar palavra-passe"} onClick={() => setShow(!show)}>{show ? "◉" : "◌"}</button></div>
         {errs.next && <small className="field-error">{errs.next}</small>}
       </div>
-      <div className="field"><label htmlFor="rec-pw2">Confirmar nova palavra-passe</label><input id="rec-pw2" placeholder="Repita a palavra-passe" maxLength={128} type={show ? "text" : "password"} autoComplete="new-password" value={pw.next2} onChange={(e) => { setPw({ ...pw, next2: e.target.value }); setErrs({ ...errs, next2: "" }); }} aria-invalid={!!errs.next2} />{errs.next2 && <small className="field-error">{errs.next2}</small>}</div>
+      <div className="field"><label htmlFor="rec-pw2">Confirmar nova palavra-passe</label><input id="rec-pw2" maxLength={128} type={show ? "text" : "password"} autoComplete="new-password" value={pw.next2} onChange={(e) => { setPw({ ...pw, next2: e.target.value }); setErrs({ ...errs, next2: "" }); }} aria-invalid={!!errs.next2} />{errs.next2 && <small className="field-error">{errs.next2}</small>}</div>
       {msg && <p className="auth-err" role="alert">{msg}</p>}
       <button type="submit" className="btn full" disabled={busy}>{busy ? "A guardar..." : "Guardar nova palavra-passe"}</button>
       <button type="button" className="link auth-link" disabled={busy || wait > 0} onClick={() => ask()}>{wait > 0 ? `Reenviar código (${wait}s)` : "Reenviar código"}</button>
@@ -753,12 +753,12 @@ const Auth = ({ s }: { s: Store }) => {
           <p className="muted">{reg ? "Crie a sua conta para comprar mais depressa." : "Entre na sua conta para continuar."}</p>
         </div>
         <div className="tabs" role="tablist">{(["Entrar", "Registar"] as const).map((m) => <button type="button" key={m} role="tab" aria-selected={mode === m} className={mode === m ? "on" : ""} onClick={() => switchMode(m)}>{m}</button>)}</div>
-        {reg && <div className="field"><label htmlFor="au-name">Nome completo</label><input id="au-name" {...FIELD.name} placeholder="Ex.: Maria Matola" value={f.name} onChange={set("name", onlyName)} aria-invalid={!!fieldErrors.name} />{fieldErrors.name && <small className="field-error">{fieldErrors.name}</small>}</div>}
-        {!reg && <div className="field"><label htmlFor="au-id">E-mail ou telefone</label><input id="au-id" {...FIELD.contact} placeholder="Ex.: nome@email.com ou 84 123 4567" value={f.id} onChange={set("id")} aria-invalid={!!fieldErrors.id} />{fieldErrors.id && <small className="field-error">{fieldErrors.id}</small>}</div>}
-        {reg && <div className="field"><label htmlFor="au-email">E-mail</label><input id="au-email" {...FIELD.email} placeholder="Ex.: nome@email.com" value={f.email} onChange={set("email")} aria-invalid={!!fieldErrors.email} />{fieldErrors.email && <small className="field-error">{fieldErrors.email}</small>}</div>}
-        {reg && <div className="field"><label htmlFor="au-phone">Telefone</label><input id="au-phone" {...FIELD.phone} placeholder="Ex.: 84 123 4567" value={f.phone} onChange={set("phone", onlyPhone)} aria-invalid={!!fieldErrors.phone} />{fieldErrors.phone && <small className="field-error">{fieldErrors.phone}</small>}</div>}
+        {reg && <div className="field"><label htmlFor="au-name">Nome completo</label><input id="au-name" {...FIELD.name} value={f.name} onChange={set("name", onlyName)} aria-invalid={!!fieldErrors.name} />{fieldErrors.name && <small className="field-error">{fieldErrors.name}</small>}</div>}
+        {!reg && <div className="field"><label htmlFor="au-id">E-mail ou telefone</label><input id="au-id" {...FIELD.contact} value={f.id} onChange={set("id")} aria-invalid={!!fieldErrors.id} />{fieldErrors.id && <small className="field-error">{fieldErrors.id}</small>}</div>}
+        {reg && <div className="field"><label htmlFor="au-email">E-mail</label><input id="au-email" {...FIELD.email} value={f.email} onChange={set("email")} aria-invalid={!!fieldErrors.email} />{fieldErrors.email && <small className="field-error">{fieldErrors.email}</small>}</div>}
+        {reg && <div className="field"><label htmlFor="au-phone">Telefone</label><input id="au-phone" {...FIELD.phone} value={f.phone} onChange={set("phone", onlyPhone)} aria-invalid={!!fieldErrors.phone} />{fieldErrors.phone && <small className="field-error">{fieldErrors.phone}</small>}</div>}
         <div className="field"><label htmlFor="au-pw">Palavra-passe</label>
-          <div className="pw"><input id="au-pw" placeholder="Mínimo 8 caracteres" maxLength={128} type={show ? "text" : "password"} autoComplete={reg ? "new-password" : "current-password"} value={f.pw} onChange={set("pw")} aria-invalid={!!fieldErrors.pw} /><button type="button" className="pw-toggle" aria-label={show ? "Ocultar palavra-passe" : "Mostrar palavra-passe"} onClick={() => setShow(!show)}>{show ? "◉" : "◌"}</button></div>
+          <div className="pw"><input id="au-pw" maxLength={128} type={show ? "text" : "password"} autoComplete={reg ? "new-password" : "current-password"} value={f.pw} onChange={set("pw")} aria-invalid={!!fieldErrors.pw} /><button type="button" className="pw-toggle" aria-label={show ? "Ocultar palavra-passe" : "Mostrar palavra-passe"} onClick={() => setShow(!show)}>{show ? "◉" : "◌"}</button></div>
           {fieldErrors.pw && <small className="field-error">{fieldErrors.pw}</small>}
           {reg && f.pw && (
             <div className={`strength strength-${passwordScore}`} aria-live="polite">
@@ -769,7 +769,7 @@ const Auth = ({ s }: { s: Store }) => {
             </div>
           )}
         </div>
-        {reg && <div className="field"><label htmlFor="au-pw2">Confirmar palavra-passe</label><input id="au-pw2" placeholder="Repita a palavra-passe" maxLength={128} type={show ? "text" : "password"} autoComplete="new-password" value={f.pw2} onChange={set("pw2")} aria-invalid={!!fieldErrors.pw2} />{fieldErrors.pw2 && <small className="field-error">{fieldErrors.pw2}</small>}</div>}
+        {reg && <div className="field"><label htmlFor="au-pw2">Confirmar palavra-passe</label><input id="au-pw2" maxLength={128} type={show ? "text" : "password"} autoComplete="new-password" value={f.pw2} onChange={set("pw2")} aria-invalid={!!fieldErrors.pw2} />{fieldErrors.pw2 && <small className="field-error">{fieldErrors.pw2}</small>}</div>}
         {!reg && <div className="auth-opts"><button type="button" className="link" onClick={() => switchMode("Recuperar")}>Esqueceu a palavra-passe?</button><label className="check"><input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} /> Manter sessão iniciada</label></div>}
         {reg && <label className="check terms"><input type="checkbox" checked={terms} onChange={(e) => { setTerms(e.target.checked); setErr(""); }} /><span>Li e aceito os <LegalLinks />.</span></label>}
         {err && <p className="auth-err" role="alert">{err}</p>}
@@ -1624,7 +1624,7 @@ const Cart = ({ s }: { s: Store }) => {
             <button disabled={s.cart[id] >= Math.min(p.stock ?? 99, 99)} title={s.cart[id] >= (p.stock ?? 99) ? "Stock máximo atingido" : undefined} onClick={() => s.add(id, 1)}>+</button></div>
           <button className="link" onClick={() => { if (window.confirm("Remover este produto do carrinho?")) { s.add(id, -s.cart[id]); s.showToast("Produto removido do carrinho"); } }}>Remover</button></div>); })}</div>
       <div className="panel"><h3>Resumo do pedido</h3>
-        <div className="bar"><input type="text" placeholder="Ex.: BEMVINDO10" maxLength={30} autoCapitalize="characters" autoComplete="off" value={code} onChange={(e) => setCode(e.target.value.replace(/[^A-Za-z0-9-]/g, "").toUpperCase())} aria-label="Código do cupão" /><button className="btn ghost" onClick={() => setOk(VALID_COUPONS.includes(code.trim().toUpperCase()))}>Aplicar</button></div>
+        <div className="bar"><input type="text" maxLength={30} autoCapitalize="characters" autoComplete="off" value={code} onChange={(e) => setCode(e.target.value.replace(/[^A-Za-z0-9-]/g, "").toUpperCase())} aria-label="Código do cupão" /><button className="btn ghost" onClick={() => setOk(VALID_COUPONS.includes(code.trim().toUpperCase()))}>Aplicar</button></div>
         <p className="sum"><span>Subtotal</span><span>{fmt(sub)}</span></p>
         {ok && <p className="sum"><span>Desconto</span><span>−{fmt(disc)}</span></p>}
         <p className="sum total"><span>Total</span><span>{fmt(sub - disc)}</span></p>
@@ -2278,12 +2278,12 @@ const Checkout = ({ s }: { s: Store }) => {
   );
 
   if (i === 0) {
-    const field = (k: AddressTextKey, label: string, opts: { required?: boolean; placeholder?: string; type?: string; autoComplete?: string; maxLength?: number; inputMode?: "tel" | "numeric" | "text"; pattern?: string; clean?: (v: string) => string; capitalize?: "words" | "sentences" | "off" } = {}) => (
+    const field = (k: AddressTextKey, label: string, opts: { required?: boolean; type?: string; autoComplete?: string; maxLength?: number; inputMode?: "tel" | "numeric" | "text"; pattern?: string; clean?: (v: string) => string; capitalize?: "words" | "sentences" | "off" } = {}) => (
       <div className="co-field">
         <label htmlFor={`co-${k}`}>{label}{opts.required !== false && <span className="co-req" aria-hidden="true"> *</span>}</label>
         <input id={`co-${k}`} type={opts.type ?? "text"} inputMode={opts.inputMode} autoComplete={opts.autoComplete} maxLength={opts.maxLength ?? 80}
           pattern={opts.pattern} autoCapitalize={opts.capitalize} spellCheck={opts.type === "tel" ? false : undefined}
-          placeholder={opts.placeholder} value={addr[k]} onChange={(e) => setField(k, opts.clean ? opts.clean(e.target.value) : e.target.value)}
+ value={addr[k]} onChange={(e) => setField(k, opts.clean ? opts.clean(e.target.value) : e.target.value)}
           aria-invalid={addrErrs[k] ? true : undefined} aria-describedby={addrErrs[k] ? `co-${k}-err` : undefined} />
         {addrErrs[k] && <span className="field-error" id={`co-${k}-err`} role="alert">{addrErrs[k]}</span>}
       </div>
@@ -2345,8 +2345,8 @@ const Checkout = ({ s }: { s: Store }) => {
             <legend>Destinatário</legend>
             <p className="muted co-help">Indique o nome de quem vai receber e um telefone activo para contacto do estafeta.</p>
             <div className="co-grid">
-              {field("name", "Nome", { autoComplete: "name", placeholder: "Nome e apelido", maxLength: 50, clean: onlyPersonName, capitalize: "words" })}
-              {field("phone", "Telefone", { type: "tel", inputMode: "numeric", autoComplete: "tel-national", placeholder: "Ex.: 84 123 4567", maxLength: 9, pattern: "[0-9]{9}", clean: onlyPhone })}
+              {field("name", "Nome", { autoComplete: "name", maxLength: 50, clean: onlyPersonName, capitalize: "words" })}
+              {field("phone", "Telefone", { type: "tel", inputMode: "numeric", autoComplete: "tel-national", maxLength: 9, pattern: "[0-9]{9}", clean: onlyPhone })}
             </div>
           </fieldset>
 
@@ -2371,7 +2371,7 @@ const Checkout = ({ s }: { s: Store }) => {
                 {addrErrs.neighborhood && <span className="field-error" id="co-neighborhood-err" role="alert">{addrErrs.neighborhood}</span>}
               </div>
             </div>
-            {field("reference", "Ponto de referência", { placeholder: "Ex.: perto da Escola X ou Loja Y", maxLength: 50, clean: (v) => onlyAddressText(v, 50), capitalize: "sentences" })}
+            {field("reference", "Ponto de referência", { maxLength: 50, clean: (v) => onlyAddressText(v, 50), capitalize: "sentences" })}
             <p className="muted co-help">Obrigatório. Indique um local próximo que ajude o estafeta a encontrar a morada, como uma escola, loja ou paragem.</p>
 
           </fieldset>
@@ -2662,10 +2662,10 @@ const Addresses = ({ s }: { s: Store }) => {
   };
 
   /** Campo de texto com etiqueta, erro e acessibilidade. */
-  const text = (k: "name" | "phone" | "reference" | "label" | "neighborhood", label: string, o: { required?: boolean; placeholder?: string; type?: string; inputMode?: "tel" | "numeric" | "text"; pattern?: string; autoComplete?: string; maxLength: number; clean?: (v: string) => string }) => (
+  const text = (k: "name" | "phone" | "reference" | "label" | "neighborhood", label: string, o: { required?: boolean; type?: string; inputMode?: "tel" | "numeric" | "text"; pattern?: string; autoComplete?: string; maxLength: number; clean?: (v: string) => string }) => (
     <div className="co-field">
       <label htmlFor={`ad-${k}`}>{label}{o.required !== false && <span className="co-req" aria-hidden="true"> *</span>}</label>
-      <input id={`ad-${k}`} type={o.type ?? "text"} inputMode={o.inputMode} autoComplete={o.autoComplete} maxLength={o.maxLength} placeholder={o.placeholder} pattern={o.pattern}
+      <input id={`ad-${k}`} type={o.type ?? "text"} inputMode={o.inputMode} autoComplete={o.autoComplete} maxLength={o.maxLength} pattern={o.pattern}
         value={d[k]} onChange={(e) => setField(k, o.clean ? o.clean(e.target.value) : e.target.value)}
         aria-invalid={errs[k] ? true : undefined} aria-describedby={errs[k] ? `ad-${k}-err` : undefined} />
       {errs[k] && <span className="field-error" id={`ad-${k}-err`} role="alert">{errs[k]}</span>}
@@ -2685,7 +2685,7 @@ const Addresses = ({ s }: { s: Store }) => {
           <h3>{editing === "new" ? "Nova morada" : "Editar morada"}</h3>
           <div className="co-field">
             <label htmlFor="ad-label">Nome da morada<span className="co-req" aria-hidden="true"> *</span></label>
-            <input id="ad-label" placeholder="Ex.: Casa, Trabalho" maxLength={30} value={d.label} onChange={(e) => setField("label", e.target.value)}
+            <input id="ad-label" maxLength={30} value={d.label} onChange={(e) => setField("label", e.target.value)}
               aria-invalid={errs.label ? true : undefined} aria-describedby={errs.label ? "ad-label-err" : undefined} />
             <div className="acc-chips">
               {LABEL_SUGGESTIONS.map((l) => <button type="button" key={l} className={`acc-chip ${d.label === l ? "on" : ""}`} onClick={() => setField("label", l)}>{l}</button>)}
@@ -2693,8 +2693,8 @@ const Addresses = ({ s }: { s: Store }) => {
             {errs.label && <span className="field-error" id="ad-label-err" role="alert">{errs.label}</span>}
           </div>
           <div className="co-grid">
-            {text("name", "Nome de quem recebe", { autoComplete: "name", placeholder: "Nome e apelido", maxLength: 50, clean: onlyPersonName })}
-            {text("phone", "Telemóvel", { type: "tel", inputMode: "numeric", autoComplete: "tel-national", placeholder: "Ex.: 84 123 4567", maxLength: 9, pattern: "[0-9]{9}", clean: onlyPhone })}
+            {text("name", "Nome de quem recebe", { autoComplete: "name", maxLength: 50, clean: onlyPersonName })}
+            {text("phone", "Telemóvel", { type: "tel", inputMode: "numeric", autoComplete: "tel-national", maxLength: 9, pattern: "[0-9]{9}", clean: onlyPhone })}
           </div>
           <div className="co-grid">
             <div className="co-field"><label htmlFor="ad-city">Cidade</label><input id="ad-city" className="co-fixed" value={DELIVERY_CITY} readOnly /></div>
@@ -2974,7 +2974,7 @@ const HelpCenter = ({ s }: { s: Store }) => {
           </div>
           <div className="co-field">
             <label htmlFor="hp-body">Mensagem<span className="co-req" aria-hidden="true"> *</span></label>
-            <textarea id="hp-body" rows={4} maxLength={600} value={body} onChange={(e) => { setBody(e.target.value); setErr(""); }} placeholder="Explique o que aconteceu ou o que precisa." aria-invalid={err ? true : undefined} />
+            <textarea id="hp-body" rows={4} maxLength={600} value={body} onChange={(e) => { setBody(e.target.value); setErr(""); }} aria-invalid={err ? true : undefined} />
             {err && <span className="field-error" role="alert">{err}</span>}
           </div>
           <div className="row">
@@ -3159,9 +3159,9 @@ const Profile = ({ s }: { s: Store }) => {
         </>
       ) : (
         <form className="profile-form" onSubmit={save} noValidate>
-          <div className="field"><label htmlFor="pf-name">Nome completo</label><input id="pf-name" {...FIELD.name} placeholder="Ex.: Maria Matola" value={f.name} onChange={onF("name", onlyName)} aria-invalid={!!errs.name} />{errs.name && <small className="field-error">{errs.name}</small>}</div>
-          <div className="field"><label htmlFor="pf-email">E-mail</label><input id="pf-email" {...FIELD.email} placeholder="Ex.: nome@email.com" value={f.email} onChange={onF("email")} aria-invalid={!!errs.email} />{errs.email && <small className="field-error">{errs.email}</small>}</div>
-          <div className="field"><label htmlFor="pf-phone">Telefone (opcional)</label><input id="pf-phone" {...FIELD.phone} placeholder="Ex.: 84 123 4567" value={f.phone} onChange={onF("phone", onlyPhone)} aria-invalid={!!errs.phone} />{errs.phone && <small className="field-error">{errs.phone}</small>}</div>
+          <div className="field"><label htmlFor="pf-name">Nome completo</label><input id="pf-name" {...FIELD.name} value={f.name} onChange={onF("name", onlyName)} aria-invalid={!!errs.name} />{errs.name && <small className="field-error">{errs.name}</small>}</div>
+          <div className="field"><label htmlFor="pf-email">E-mail</label><input id="pf-email" {...FIELD.email} value={f.email} onChange={onF("email")} aria-invalid={!!errs.email} />{errs.email && <small className="field-error">{errs.email}</small>}</div>
+          <div className="field"><label htmlFor="pf-phone">Telefone (opcional)</label><input id="pf-phone" {...FIELD.phone} value={f.phone} onChange={onF("phone", onlyPhone)} aria-invalid={!!errs.phone} />{errs.phone && <small className="field-error">{errs.phone}</small>}</div>
           {msg && <p className="auth-err" role="alert">{msg}</p>}
           <div className="row">
             <button type="button" className="btn ghost" onClick={() => setEditing(false)} disabled={busy}>Cancelar</button>
@@ -3173,9 +3173,9 @@ const Profile = ({ s }: { s: Store }) => {
       {pwOpen && !editing && (
         <form className="profile-form profile-pw" onSubmit={savePw} noValidate>
           <h3>Alterar palavra-passe</h3>
-          <div className="field"><label htmlFor="pw-cur">Palavra-passe atual</label><input id="pw-cur" placeholder="A palavra-passe que usa agora" maxLength={128} type="password" autoComplete="current-password" value={pw.cur} onChange={(e) => { setPw({ ...pw, cur: e.target.value }); setPwErrs({ ...pwErrs, cur: "" }); }} aria-invalid={!!pwErrs.cur} />{pwErrs.cur && <small className="field-error">{pwErrs.cur}</small>}</div>
-          <div className="field"><label htmlFor="pw-new">Nova palavra-passe</label><input id="pw-new" placeholder="Mínimo 8 caracteres" maxLength={128} type="password" autoComplete="new-password" value={pw.next} onChange={(e) => { setPw({ ...pw, next: e.target.value }); setPwErrs({ ...pwErrs, next: "" }); }} aria-invalid={!!pwErrs.next} />{pwErrs.next && <small className="field-error">{pwErrs.next}</small>}</div>
-          <div className="field"><label htmlFor="pw-new2">Confirmar nova palavra-passe</label><input id="pw-new2" placeholder="Repita a nova palavra-passe" maxLength={128} type="password" autoComplete="new-password" value={pw.next2} onChange={(e) => { setPw({ ...pw, next2: e.target.value }); setPwErrs({ ...pwErrs, next2: "" }); }} aria-invalid={!!pwErrs.next2} />{pwErrs.next2 && <small className="field-error">{pwErrs.next2}</small>}</div>
+          <div className="field"><label htmlFor="pw-cur">Palavra-passe atual</label><input id="pw-cur" maxLength={128} type="password" autoComplete="current-password" value={pw.cur} onChange={(e) => { setPw({ ...pw, cur: e.target.value }); setPwErrs({ ...pwErrs, cur: "" }); }} aria-invalid={!!pwErrs.cur} />{pwErrs.cur && <small className="field-error">{pwErrs.cur}</small>}</div>
+          <div className="field"><label htmlFor="pw-new">Nova palavra-passe</label><input id="pw-new" maxLength={128} type="password" autoComplete="new-password" value={pw.next} onChange={(e) => { setPw({ ...pw, next: e.target.value }); setPwErrs({ ...pwErrs, next: "" }); }} aria-invalid={!!pwErrs.next} />{pwErrs.next && <small className="field-error">{pwErrs.next}</small>}</div>
+          <div className="field"><label htmlFor="pw-new2">Confirmar nova palavra-passe</label><input id="pw-new2" maxLength={128} type="password" autoComplete="new-password" value={pw.next2} onChange={(e) => { setPw({ ...pw, next2: e.target.value }); setPwErrs({ ...pwErrs, next2: "" }); }} aria-invalid={!!pwErrs.next2} />{pwErrs.next2 && <small className="field-error">{pwErrs.next2}</small>}</div>
           <div className="row">
             <button type="button" className="btn ghost" onClick={() => setPwOpen(false)} disabled={pwBusy}>Cancelar</button>
             <button type="submit" className="btn" disabled={pwBusy}>{pwBusy ? "A guardar..." : "Guardar palavra-passe"}</button>
