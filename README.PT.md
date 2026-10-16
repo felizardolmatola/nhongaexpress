@@ -297,43 +297,43 @@ erDiagram
 
 ## API REST
 
-Todas as rotas ficam sob o prefixo `/api`. Legenda: 🌐 pública · 🔐 sessão · 🛡️ administrador.
+Todas as rotas ficam sob o prefixo `/api`. Legenda: pública · sessão · administrador.
 
 ### Autenticação — `/api/auth`
 | Método | Rota | Acesso | Descrição |
 |---|---|:---:|---|
-| POST | `/register` | 🌐 | Cria conta (limite de criação por IP). |
-| POST | `/login` | 🌐 | Inicia sessão e define o cookie. |
-| POST | `/google` | 🌐 | Login com Google. |
-| POST | `/logout` | 🌐 | Termina a sessão. |
-| GET / PATCH | `/me` | 🔐 | Ler / atualizar perfil. |
-| POST | `/change-password` | 🔐 | Alterar palavra-passe. |
-| POST | `/forgot-password` · `/reset-password` | 🌐 | Recuperação por código. |
+| POST | `/register` | Pública | Cria conta (limite de criação por IP). |
+| POST | `/login` | Pública | Inicia sessão e define o cookie. |
+| POST | `/google` | Pública | Login com Google. |
+| POST | `/logout` | Pública | Termina a sessão. |
+| GET / PATCH | `/me` | Sessão | Ler / atualizar perfil. |
+| POST | `/change-password` | Sessão | Alterar palavra-passe. |
+| POST | `/forgot-password` · `/reset-password` | Pública | Recuperação por código. |
 
 ### Loja e conta
 | Método | Rota | Acesso | Descrição |
 |---|---|:---:|---|
-| GET | `/home` | 🌐 | Secções da página inicial. |
-| GET | `/products` | 🌐 | Catálogo público. |
-| GET | `/categories` | 🌐 | Categorias e ícones. |
-| GET / POST / PUT / DELETE | `/account/addresses` (+ `/:id/default`) | 🔐 | Moradas. |
-| GET / PATCH | `/account/settings` | 🔐 | Definições da conta. |
+| GET | `/home` | Pública | Secções da página inicial. |
+| GET | `/products` | Pública | Catálogo público. |
+| GET | `/categories` | Pública | Categorias e ícones. |
+| GET / POST / PUT / DELETE | `/account/addresses` (+ `/:id/default`) | Sessão | Moradas. |
+| GET / PATCH | `/account/settings` | Sessão | Definições da conta. |
 
 ### Pedidos e entrega
 | Método | Rota | Acesso | Descrição |
 |---|---|:---:|---|
-| POST | `/orders/validate` | 🌐 | Valida o carrinho (preços e stock atuais). |
-| GET | `/orders` | 🔐 | Pedidos do cliente. |
-| POST | `/orders` | 🔐 | Cria pedido (idempotente). |
-| POST | `/orders/:id/cancel` | 🔐 | Cancela pedido. |
-| DELETE | `/orders/:id` | 🔐 | Remove pedido do histórico. |
-| POST | `/delivery/quote` | 🌐 | Cotação de entrega assinada. |
-| GET | `/delivery/zones` | 🌐 | Bairros e taxas. |
-| GET | `/delivery/orders/:id/location` | 🔐 | Posição do entregador. |
-| PUT | `/delivery/orders/:id/location` | 🛡️ | Atualiza posição do entregador. |
+| POST | `/orders/validate` | Pública | Valida o carrinho (preços e stock atuais). |
+| GET | `/orders` | Sessão | Pedidos do cliente. |
+| POST | `/orders` | Sessão | Cria pedido (idempotente). |
+| POST | `/orders/:id/cancel` | Sessão | Cancela pedido. |
+| DELETE | `/orders/:id` | Sessão | Remove pedido do histórico. |
+| POST | `/delivery/quote` | Pública | Cotação de entrega assinada. |
+| GET | `/delivery/zones` | Pública | Bairros e taxas. |
+| GET | `/delivery/orders/:id/location` | Sessão | Posição do entregador. |
+| PUT | `/delivery/orders/:id/location` | Admin | Atualiza posição do entregador. |
 
-### Administração — `/api/admin` (🛡️)
-`/me`, `/dashboard`, `/products` (CRUD), `/uploads`, `/categories` (CRUD), `/home-sections` (listar, substituir, adicionar, remover), `/customers`, `/drivers` (CRUD) e `/orders` (listar, estado, entregador, eventos, apagar, `bulk-status`, `bulk-delete`). As taxas por bairro são geridas em `GET /delivery/zones/admin` e `PUT /delivery/zones/:neighborhood` (também 🛡️).
+### Administração — `/api/admin` (admin)
+`/me`, `/dashboard`, `/products` (CRUD), `/uploads`, `/categories` (CRUD), `/home-sections` (listar, substituir, adicionar, remover), `/customers`, `/drivers` (CRUD) e `/orders` (listar, estado, entregador, eventos, apagar, `bulk-status`, `bulk-delete`). As taxas por bairro são geridas em `GET /delivery/zones/admin` e `PUT /delivery/zones/:neighborhood` (também admin).
 
 Verificação de saúde: `GET /api/health` → `{ "status": "ok" }`.
 

@@ -52,7 +52,7 @@ The project was designed around three principles:
 
 | Store — home page | Admin panel |
 |:---:|:---:|
-| ![Store home page](/frontend/src/assets/projeto/inicio.png) | ![Admin panel dashboard](/frontend/src/assets/projeto/painel-admin.png) |
+| ![Store home page](/frontend/src/assets/projeto/page.png) | ![Admin panel dashboard](/frontend/src/assets/projeto/painel-admin.png) |
 
 | Sign in / Sign up |
 |:---:|
@@ -297,43 +297,43 @@ erDiagram
 
 ## REST API
 
-All routes live under the `/api` prefix. Legend: 🌐 public · 🔐 session · 🛡️ administrator.
+All routes live under the `/api` prefix. Legend: public · session · administrator.
 
 ### Authentication — `/api/auth`
 | Method | Route | Access | Description |
 |---|---|:---:|---|
-| POST | `/register` | 🌐 | Creates an account (per-IP creation limit). |
-| POST | `/login` | 🌐 | Signs in and sets the cookie. |
-| POST | `/google` | 🌐 | Google login. |
-| POST | `/logout` | 🌐 | Ends the session. |
-| GET / PATCH | `/me` | 🔐 | Read / update profile. |
-| POST | `/change-password` | 🔐 | Change password. |
-| POST | `/forgot-password` · `/reset-password` | 🌐 | Recovery by code. |
+| POST | `/register` | Public | Creates an account (per-IP creation limit). |
+| POST | `/login` | Public | Signs in and sets the cookie. |
+| POST | `/google` | Public | Google login. |
+| POST | `/logout` | Public | Ends the session. |
+| GET / PATCH | `/me` | Session | Read / update profile. |
+| POST | `/change-password` | Session | Change password. |
+| POST | `/forgot-password` · `/reset-password` | Public | Recovery by code. |
 
 ### Store and account
 | Method | Route | Access | Description |
 |---|---|:---:|---|
-| GET | `/home` | 🌐 | Home-page sections. |
-| GET | `/products` | 🌐 | Public catalogue. |
-| GET | `/categories` | 🌐 | Categories and icons. |
-| GET / POST / PUT / DELETE | `/account/addresses` (+ `/:id/default`) | 🔐 | Addresses. |
-| GET / PATCH | `/account/settings` | 🔐 | Account settings. |
+| GET | `/home` | Public | Home-page sections. |
+| GET | `/products` | Public | Public catalogue. |
+| GET | `/categories` | Public | Categories and icons. |
+| GET / POST / PUT / DELETE | `/account/addresses` (+ `/:id/default`) | Session | Addresses. |
+| GET / PATCH | `/account/settings` | Session | Account settings. |
 
 ### Orders and delivery
 | Method | Route | Access | Description |
 |---|---|:---:|---|
-| POST | `/orders/validate` | 🌐 | Validates the cart (current prices and stock). |
-| GET | `/orders` | 🔐 | Customer's orders. |
-| POST | `/orders` | 🔐 | Creates an order (idempotent). |
-| POST | `/orders/:id/cancel` | 🔐 | Cancels an order. |
-| DELETE | `/orders/:id` | 🔐 | Removes an order from the history. |
-| POST | `/delivery/quote` | 🌐 | Signed delivery quote. |
-| GET | `/delivery/zones` | 🌐 | Neighbourhoods and fees. |
-| GET | `/delivery/orders/:id/location` | 🔐 | Driver position. |
-| PUT | `/delivery/orders/:id/location` | 🛡️ | Updates the driver position. |
+| POST | `/orders/validate` | Public | Validates the cart (current prices and stock). |
+| GET | `/orders` | Session | Customer's orders. |
+| POST | `/orders` | Session | Creates an order (idempotent). |
+| POST | `/orders/:id/cancel` | Session | Cancels an order. |
+| DELETE | `/orders/:id` | Session | Removes an order from the history. |
+| POST | `/delivery/quote` | Public | Signed delivery quote. |
+| GET | `/delivery/zones` | Public | Neighbourhoods and fees. |
+| GET | `/delivery/orders/:id/location` | Session | Driver position. |
+| PUT | `/delivery/orders/:id/location` | Admin | Updates the driver position. |
 
-### Administration — `/api/admin` (🛡️)
-`/me`, `/dashboard`, `/products` (CRUD), `/uploads`, `/categories` (CRUD), `/home-sections` (list, replace, add, remove), `/customers`, `/drivers` (CRUD) and `/orders` (list, status, driver, events, delete, `bulk-status`, `bulk-delete`). Per-neighbourhood fees are managed via `GET /delivery/zones/admin` and `PUT /delivery/zones/:neighborhood` (also 🛡️).
+### Administration — `/api/admin` (admin)
+`/me`, `/dashboard`, `/products` (CRUD), `/uploads`, `/categories` (CRUD), `/home-sections` (list, replace, add, remove), `/customers`, `/drivers` (CRUD) and `/orders` (list, status, driver, events, delete, `bulk-status`, `bulk-delete`). Per-neighbourhood fees are managed via `GET /delivery/zones/admin` and `PUT /delivery/zones/:neighborhood` (also admin).
 
 Health check: `GET /api/health` → `{ "status": "ok" }`.
 
